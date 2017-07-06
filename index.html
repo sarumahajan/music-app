@@ -86,20 +86,28 @@
     <script>
 	
 	
+	
+	<!-----------------------------------------------------------function for song play and pause-------------------------------------------------------------------------------------->
+	
 	function toggleSong() {
-var song = document.querySelector('audio');
-if(song.paused == true) {
-console.log('Playing');
-$('.play-icon').removeClass('fa-play').addClass('fa-pause');
-song.play();
-}
-else {
-console.log('Pausing');
-$('.play-icon').removeClass('fa-pause').addClass('fa-play');
-song.pause();
-}
+				var song = document.querySelector('audio');
+				if(song.paused == true) {
+				console.log('Playing');
+				$('.play-icon').removeClass('fa-play').addClass('fa-pause');
+				song.play();
+				}
+				else {
+				console.log('Pausing');
+				$('.play-icon').removeClass('fa-pause').addClass('fa-play');
+				song.pause();
+				}
 
 } 
+
+
+
+<!------------------------------------------------------------------function for change the time from sec to min------------------------------------------------------->
+
 
 
 function fancyTimeFormat(time)
@@ -121,6 +129,10 @@ function fancyTimeFormat(time)
     return ret;
 }
 
+
+<!-----------------------------------------------------------------function for display current and duration time of song----------------------------------->
+
+
 function updateCurrentTime() {
 var song = document.querySelector('audio');
     var currentTime = Math.floor(song.currentTime);
@@ -133,7 +145,7 @@ var song = document.querySelector('audio');
 
 
 
-
+<!------------------------------------------------------------------------------------playlist -------------------------------------------------------->
 
 window.onload = function() {
 updateCurrentTime();
@@ -278,35 +290,9 @@ toggleSong();
 }
 });
 
-
-
-
-
-
-
-
 }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -323,24 +309,7 @@ toggleSong();
         }
     });
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!--------------------------------------play/pause the song with icon------------------------------------------------------------>
 	
 	
     $('.play-icon').on('click', function() {
@@ -354,7 +323,7 @@ toggleSong();
 	
 	
 	
-	
+	<!--------------------------------------play/pause the song with keypress--------------------------------------------------------------->
 	
 	
 	
