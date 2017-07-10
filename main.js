@@ -32,7 +32,8 @@
 // click function for all song
 
 
-function addSongNameClickEvent(songName,position) {
+function addSongNameClickEvent(songObj,position) {
+	var songName = songObj.fileName;
     var id = '#song' + position;
 $(id).click(function() {
 var audio = document.querySelector('audio');
@@ -44,15 +45,23 @@ toggleSong();
 else {
 audio.src = songName;
 toggleSong();
+changeCurrentSongDetails(songObj);
 }
 });
 }
 
 
+// show details of current song playing
+function changeCurrentSongDetails(songObj) {
+    $('.current-song-image').attr('src','image/' + songObj.image);
+    $('.current-song-name').text(songObj.name);
+    $('.current-song-artist').text(songObj.artist);
+}
+
+
+
 
 //function for change the time from sec to min
-
-
 
 function fancyTimeFormat(time)
 {   
@@ -88,16 +97,6 @@ var song = document.querySelector('audio');
 }
 
 
-
-
-
-window.onload = function() {
-updateCurrentTime();
-setInterval(function() {
-updateCurrentTime();
-},1000);
-
-
 //playlist
 
 var songs = [{  //song1
@@ -105,65 +104,67 @@ var songs = [{  //song1
         'artist': 'The Chainsmokers',
         'album': 'Something Just Like This',
         'duration': '4:07',
-       'fileName': 'song1.mp3'
+       'fileName': 'song1.mp3',
+	   'image': 'song1.png'
     },
     {      //song2
         'name': 'It Aint Me',
         'artist': 'Selena Gomez, Kygo',
         'album': 'It Aint Me',
         'duration': '3:40',
-        'fileName': 'song2.mp3'
+        'fileName': 'song2.mp3',
+	   'image': 'song2.jpg'
     }, 
     {       //song3
         'name': 'Shape of You',
         'artist': 'Galantis, Ed Sheeran',
         'album': 'Shape of You',
         'duration': '3:16',
-        'fileName': 'song3.mp3'
+        'fileName': 'song3.mp3',
+	   'image': 'song3.jpg'
     },
     {       //song4
         'name': 'Believer',
         'artist': 'Imagine Dragons',
         'album': 'Believer',
         'duration': '3:23',
-        'fileName': 'song4.mp3'
+        'fileName': 'song4.mp3',
+	   'image': 'song4.jpg'
     },
-    {         //song4
+    {         //song5
         'name': 'Cheap Thrills',
         'artist': 'Sia ,Sean Paul ',
         'album': 'Cheap Thrills',
         'duration': '3:44',
-        'fileName': 'song5.mp3'
+        'fileName': 'song5.mp3',
+	   'image': 'song5.jpg'
     },
-    {        //song5
+    {        //song6
         'name': 'We Dont Talk Anymore',
         'artist': 'Charlie Puth , Selena Gomez',
         'album': 'We Dont Talk Anymore',
         'duration': '3:37',
-        'fileName': 'song6.mp3'
+        'fileName': 'song6.mp3',
+	   'image': 'song6.jpg'
     },
-    {       //song6
+    {       //song7
         'name': 'Let Me Love You',
         'artist': 'Dj Snake , Justin Bieber',
         'album': 'Let Me Love You',
         'duration': '3:25',
-        'fileName': 'song7.mp3'
-    },
-    {      //song7
-        'name': 'Faded ',
-        'artist': 'Alan Walker',
-        'album': 'Faded',
-        'duration': '3:32',
-        'fileName': 'song8.mp3'
-    },
-    {       //song7
-        'name': 'Closer',
-        'artist': 'The Chainsmokers',
-        'album': 'Closer',
-        'duration': '3:04',
-        'fileName': 'song9.mp3'
+        'fileName': 'song7.mp3',
+	   'image': 'song7.jpg'
     }
 	]
+
+
+
+window.onload = function() {
+changeCurrentSongDetails(songs[0]);
+updateCurrentTime();
+setInterval(function() {
+updateCurrentTime();
+},1000);
 
 	
 	
@@ -178,8 +179,11 @@ var songs = [{  //song1
         song.find('.song-artist').text(obj.artist);
         song.find('.song-album').text(obj.album);
         song.find('.song-length').text(obj.duration);
-        addSongNameClickEvent(obj.fileName,i+1);
+        addSongNameClickEvent(obj,i+1);
     }
+	$('#songs').DataTable({
+        paging: false
+    });
 
 }
 	
@@ -191,7 +195,7 @@ var songs = [{  //song1
 	
     $('.welcome-screen button').on('click', function() {
         var name = $('#name-input').val();
-        if (name.length > 2) {
+        if (name.length > 3) {
             var message = "Welcome, " + name;
             $('.main .user-name').text(message);
             $('.welcome-screen').addClass('hidden');
