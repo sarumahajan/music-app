@@ -1,9 +1,7 @@
 
 
 
-var currentSongNumber = 1;
-var willLoop = 0;
-var willShuffle = 0;
+
 
 //function for song play and pause
 	
@@ -191,8 +189,8 @@ updateCurrentTime();
         addSongNameClickEvent(obj,i+1);
     }
 	$('#songs').DataTable({
-        "scrollY":        "200px",
-        "scrollCollapse": true,
+       
+        
         "paging":         false
        
 		
@@ -231,10 +229,7 @@ updateCurrentTime();
 	
 	
 	
-	$('.fa-repeat').on('click',function() {
-    $('.fa-repeat').toggleClass('disabled')
-    willLoop = 1 - willLoop;
-});
+	
 
 
 
@@ -243,10 +238,7 @@ updateCurrentTime();
 
 
 
-$('.fa-random').on('click',function() {
-    $('.fa-random').toggleClass('disabled')
-    willShuffle = 1 - willShuffle;
-});
+
 	
 //play-pause the song with keypress
 	
