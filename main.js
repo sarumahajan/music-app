@@ -191,9 +191,9 @@ updateCurrentTime();
 	$('#songs').DataTable({
        
         
-        "paging":         false
-       
-		
+         
+         
+        paging:         false
     });
 
 }
