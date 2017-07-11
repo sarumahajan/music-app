@@ -1,7 +1,9 @@
 
 
 
-
+var currentSongNumber = 1;
+var willLoop = 0;
+var willShuffle = 0;
 
 //function for song play and pause
 	
@@ -49,6 +51,7 @@ changeCurrentSongDetails(songObj);
 }
 });
 }
+
 
 
 // show details of current song playing
@@ -155,6 +158,7 @@ var songs = [{  //song1
         'fileName': 'song7.mp3',
 	   'image': 'song7.jpg'
     }
+	
 	]
 
 
@@ -162,9 +166,14 @@ var songs = [{  //song1
 window.onload = function() {
 changeCurrentSongDetails(songs[0]);
 updateCurrentTime();
+
 setInterval(function() {
 updateCurrentTime();
 },1000);
+
+
+
+
 
 	
 	
@@ -182,7 +191,11 @@ updateCurrentTime();
         addSongNameClickEvent(obj,i+1);
     }
 	$('#songs').DataTable({
-        paging: false
+        "scrollY":        "200px",
+        "scrollCollapse": true,
+        "paging":         false
+       
+		
     });
 
 }
@@ -218,16 +231,38 @@ updateCurrentTime();
 	
 	
 	
+	$('.fa-repeat').on('click',function() {
+    $('.fa-repeat').toggleClass('disabled')
+    willLoop = 1 - willLoop;
+});
+
+
+
+
+
+
+
+
+$('.fa-random').on('click',function() {
+    $('.fa-random').toggleClass('disabled')
+    willShuffle = 1 - willShuffle;
+});
 	
 //play-pause the song with keypress
 	
 	
 	
-    $('body').on('keypress', function(event) {
-                if (event.keyCode == 32) {
-                    
-				toggleSong();	
-					
-					
-                }
-            });
+    $('body').on('keypress',function(event) {
+    var target = event.target;
+    if (event.keyCode == 32 && target.tagName !='INPUT')
+    {
+        toggleSong();
+    }
+});
+
+			
+			
+			
+			
+			
+	

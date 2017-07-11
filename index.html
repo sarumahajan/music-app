@@ -20,20 +20,20 @@
                 <button> Go </button>
             </div>
         </section>
-        <div class="main hidden">
+        <div class="main  hidden ">
             <header>
                 <div class="right floated user-name"> </div>
             </header>
             <section class="content">
                 <audio src="song1.mp3"></audio>
 				<table id="songs">
-    <thead class="list-headers">
-            <tr><td> Title </td>
+    <thead class="list-headers" >
+            <tr ><td class="title"> Title </td>
             <td> Artist </td>
             <td> Album </td>
             <td> Duration </td>
         </tr></thead>
-      <tbody><tr class="song" id="song1">
+      <tbody class="song-list"><tr class="song" id="song1">
                 <td class="song-name"></td>
                 <td class="song-artist"></td>
                 <td class="song-album"></td>
@@ -81,6 +81,7 @@
 </table>
 
 <div class="current-song-wrapper">
+
         <img class="current-song-image">
         <div>
         <p class="current-song-name"></p>
@@ -91,10 +92,14 @@
             <footer>
                 <div class="controls">
                     <div class="player-buttons">
-
-                        <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
-						
-                    </div>
+      <i class="fa fa-random clickable disabled" aria-hidden="true"></i>
+      <i class="fa fa-step-backward clickable" aria-hidden="true"></i>
+      <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
+      <i class="fa fa-step-forward clickable next" aria-hidden="true"></i>
+      <i class="fa fa-repeat disabled clickable" aria-hidden="true"></i>
+	  <button> <a href="visualization/index.html">Go</a> </button>
+    </div>
+  
                     <div class="progress-wrapper">
                         <span class="time-elapsed"> </span>
                         <div class="player-progress">
