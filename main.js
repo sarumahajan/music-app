@@ -4,7 +4,7 @@
 
 
 //function for song play and pause
-	
+
 
 
 	function toggleSong() {
@@ -20,7 +20,7 @@
 				song.pause();
 				}
 
-} 
+}
 
 
 
@@ -65,7 +65,7 @@ function changeCurrentSongDetails(songObj) {
 //function for change the time from sec to min
 
 function fancyTimeFormat(time)
-{   
+{
     // Hours, minutes and seconds
     var hrs = ~~(time / 3600);
     var mins = ~~((time % 3600) / 60);
@@ -115,7 +115,7 @@ var songs = [{  //song1
         'duration': '3:40',
         'fileName': 'song2.mp3',
 	   'image': 'song2.jpg'
-    }, 
+    },
     {       //song3
         'name': 'Shape of You',
         'artist': 'Galantis, Ed Sheeran',
@@ -156,13 +156,16 @@ var songs = [{  //song1
         'fileName': 'song7.mp3',
 	   'image': 'song7.jpg'
     }
-	
+
 	]
 
 
 
 window.onload = function() {
-changeCurrentSongDetails(songs[0]);
+
+
+
+changeCurrentSongDetails(songs[3]);
 updateCurrentTime();
 
 setInterval(function() {
@@ -173,11 +176,11 @@ updateCurrentTime();
 
 
 
-	
-	
-	
+
+
+
 	//loop for text and click event  for all songs
-	
+
  for(var i =0; i < songs.length;i++) {
         var obj = songs[i];
         var name = '#song' + (i+1);
@@ -189,21 +192,21 @@ updateCurrentTime();
         addSongNameClickEvent(obj,i+1);
     }
 	$('#songs').DataTable({
-       
-        
-         
-         
+
+
+
+
         paging:         false
     });
 
 }
-	
 
-	
-	
-	
+
+
+
+
 	//welcome screen
-	
+
     $('.welcome-screen button').on('click', function() {
         var name = $('#name-input').val();
         if (name.length > 3) {
@@ -215,21 +218,77 @@ updateCurrentTime();
             $('#name-input').addClass('error');
         }
     });
-	
+
 	//play-pause the song with icon
-	
-	
+  $('.visual').on('click', function() {
+
+
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var audioElement = document.getElementById('audioElement');
+  var audioSrc = audioCtx.createMediaElementSource(audioElement);
+  var analyser = audioCtx.createAnalyser();
+
+  // Bind our analyser to the media element source.
+  audioSrc.connect(analyser);
+  audioSrc.connect(audioCtx.destination);
+
+  //var frequencyData = new Uint8Array(analyser.frequencyBinCount);
+  var frequencyData = new Uint8Array(350);
+
+  var svgHeight = '260';
+  var svgWidth = '1500';
+  var barPadding = '0.5';
+
+  function createSvg(parent, height, width) {
+    return d3.select(parent).append('svg').attr('height', height).attr('width', width);
+  }
+
+  var svg = createSvg('body', svgHeight, svgWidth);
+
+  // Create our initial D3 chart.
+  svg.selectAll('rect')
+     .data(frequencyData)
+     .enter()
+     .append('rect')
+     .attr('x', function (d, i) {
+        return i * (svgWidth / frequencyData.length);
+     })
+     .attr('width', svgWidth / frequencyData.length - barPadding);
+
+  // Continuously loop and update chart with frequency data.
+  function renderChart() {
+     requestAnimationFrame(renderChart);
+
+     // Copy frequency data to frequencyData array.
+     analyser.getByteFrequencyData(frequencyData);
+
+     // Update d3 chart with new data.
+     svg.selectAll('rect')
+        .data(frequencyData)
+        .attr('y', function(d) {
+           return svgHeight - d;
+        })
+        .attr('height', function(d) {
+           return d;
+        })
+        .attr('fill', function(d) {
+           return 'rgb(0, 0, ' + d + ')';
+        });
+  }
+
+  // Run the loop
+   renderChart();
+  toggleSong();
+
+  });
+
+
     $('.play-icon').on('click', function() {
-        
+
 		toggleSong();
-		
-		
+
+
     });
-	
-	
-	
-	
-	
 
 
 
@@ -239,11 +298,16 @@ updateCurrentTime();
 
 
 
-	
+
+
+
+
+
+
 //play-pause the song with keypress
-	
-	
-	
+
+
+
     $('body').on('keypress',function(event) {
     var target = event.target;
     if (event.keyCode == 32 && target.tagName !='INPUT')
@@ -251,10 +315,3 @@ updateCurrentTime();
         toggleSong();
     }
 });
-
-			
-			
-			
-			
-			
-	
