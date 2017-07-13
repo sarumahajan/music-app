@@ -1,5 +1,22 @@
 
 
+var currentSongNumber = 1;
+var willLoop = 0;
+var willShuffle = 0;
+var willvisual = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23,8 +40,64 @@
 }
 
 
+function visualization(){
+	
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var audioElement = document.getElementById('audioElement');
+  var audioSrc = audioCtx.createMediaElementSource(audioElement);
+  var analyser = audioCtx.createAnalyser();
 
+  // Bind our analyser to the media element source.
+  audioSrc.connect(analyser);
+  audioSrc.connect(audioCtx.destination);
 
+  //var frequencyData = new Uint8Array(analyser.frequencyBinCount);
+  var frequencyData = new Uint8Array(350);
+
+  var svgHeight = '260';
+  var svgWidth = '1350';
+  var barPadding = '0.5';
+
+  function createSvg(parent, height, width) {
+    return d3.select(parent).append('svg').attr('height', height).attr('width', width);
+  }
+
+  var svg = createSvg('body', svgHeight, svgWidth);
+
+  // Create our initial D3 chart.
+  svg.selectAll('rect')
+     .data(frequencyData)
+     .enter()
+     .append('rect')
+     .attr('x', function (d, i) {
+        return i * (svgWidth / frequencyData.length);
+     })
+     .attr('width', svgWidth / frequencyData.length - barPadding);
+
+  // Continuously loop and update chart with frequency data.
+  function renderChart() {
+     requestAnimationFrame(renderChart);
+
+     // Copy frequency data to frequencyData array.
+     analyser.getByteFrequencyData(frequencyData);
+
+     // Update d3 chart with new data.
+     svg.selectAll('rect')
+        .data(frequencyData)
+        .attr('y', function(d) {
+           return svgHeight - d;
+        })
+        .attr('height', function(d) {
+           return d;
+        })
+        .attr('fill', function(d) {
+           return 'rgb(0, 0, ' + d + ')';
+        });
+  }
+
+  // Run the loop
+   renderChart();
+}
 
 
 
@@ -83,7 +156,13 @@ function fancyTimeFormat(time)
     return ret;
 }
 
-
+function progressbar() {
+	var song = document.querySelector('audio');
+	var ct=  song.currentTime;
+	var dt=song.duration;
+	var percentage=(ct/dt)*100;
+	$(".progress-filled").css('width', percentage+"%");
+}
 //function for display current and duration time of song
 
 
@@ -98,61 +177,91 @@ var song = document.querySelector('audio');
 }
 
 
+
+
+
+function timeJump() {
+    var song = document.querySelector('audio')
+    song.currentTime = song.duration - 5;
+}
+
+function randomExcluded(min, max, excluded) {
+    var n = Math.floor(Math.random() * (max-min) + min);
+    if (n >= excluded) n++;
+    return n;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //playlist
 
 var songs = [{  //song1
-        'name': 'Something Just Like This ',
-        'artist': 'The Chainsmokers',
-        'album': 'Something Just Like This',
-        'duration': '4:07',
-       'fileName': 'song1.mp3',
-	   'image': 'song1.png'
-    },
-    {      //song2
-        'name': 'It Aint Me',
-        'artist': 'Selena Gomez, Kygo',
-        'album': 'It Aint Me',
-        'duration': '3:40',
-        'fileName': 'song2.mp3',
-	   'image': 'song2.jpg'
-    },
-    {       //song3
-        'name': 'Shape of You',
-        'artist': 'Galantis, Ed Sheeran',
-        'album': 'Shape of You',
-        'duration': '3:16',
-        'fileName': 'song3.mp3',
-	   'image': 'song3.jpg'
-    },
-    {       //song4
-        'name': 'Believer',
+
+             'name': 'Believer',
         'artist': 'Imagine Dragons',
         'album': 'Believer',
         'duration': '3:23',
-        'fileName': 'song4.mp3',
-	   'image': 'song4.jpg'
+        'fileName': 'song1.mp3',
+	   'image': 'song1.jpg'
+        
     },
-    {         //song5
+    {      //song2
         'name': 'Cheap Thrills',
         'artist': 'Sia ,Sean Paul ',
         'album': 'Cheap Thrills',
         'duration': '3:44',
-        'fileName': 'song5.mp3',
-	   'image': 'song5.jpg'
+        'fileName': 'song2.mp3',
+	   'image': 'song2.jpg'
+	
     },
-    {        //song6
-        'name': 'We Dont Talk Anymore',
-        'artist': 'Charlie Puth , Selena Gomez',
-        'album': 'We Dont Talk Anymore',
-        'duration': '3:37',
-        'fileName': 'song6.mp3',
-	   'image': 'song6.jpg'
+    {       //song3
+        'name': 'It Aint Me',
+        'artist': 'Selena Gomez, Kygo',
+        'album': 'It Aint Me',
+        'duration': '3:40',
+        'fileName': 'song3.mp3',
+	   'image': 'song3.jpg'
     },
-    {       //song7
+    {       //song4
         'name': 'Let Me Love You',
         'artist': 'Dj Snake , Justin Bieber',
         'album': 'Let Me Love You',
         'duration': '3:25',
+        'fileName': 'song4.mp3',
+	   'image': 'song4.jpg'
+    },
+    {         //song5
+        'name': 'Shape of You',
+        'artist': 'Galantis, Ed Sheeran',
+        'album': 'Shape of You',
+        'duration': '3:16',
+        'fileName': 'song5.mp3',
+	   'image': 'song5.jpg'
+    },
+    {        //song6
+        'name': 'Something Just Like This ',
+        'artist': 'The Chainsmokers',
+        'album': 'Something Just Like This',
+        'duration': '4:07',
+       'fileName': 'song6.mp3',
+	   'image': 'song6.png'
+    },
+    {       //song7
+        'name': 'We Dont Talk Anymore',
+        'artist': 'Charlie Puth , Selena Gomez',
+        'album': 'We Dont Talk Anymore',
+        'duration': '3:37',
         'fileName': 'song7.mp3',
 	   'image': 'song7.jpg'
     }
@@ -165,11 +274,12 @@ window.onload = function() {
 
 
 
-changeCurrentSongDetails(songs[3]);
+changeCurrentSongDetails(songs[0]);
 updateCurrentTime();
 
 setInterval(function() {
 updateCurrentTime();
+progressbar();
 },1000);
 
 
@@ -220,67 +330,7 @@ updateCurrentTime();
     });
 
 	//play-pause the song with icon
-  $('.visual').on('click', function() {
-
-
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  var audioElement = document.getElementById('audioElement');
-  var audioSrc = audioCtx.createMediaElementSource(audioElement);
-  var analyser = audioCtx.createAnalyser();
-
-  // Bind our analyser to the media element source.
-  audioSrc.connect(analyser);
-  audioSrc.connect(audioCtx.destination);
-
-  //var frequencyData = new Uint8Array(analyser.frequencyBinCount);
-  var frequencyData = new Uint8Array(350);
-
-  var svgHeight = '260';
-  var svgWidth = '1500';
-  var barPadding = '0.5';
-
-  function createSvg(parent, height, width) {
-    return d3.select(parent).append('svg').attr('height', height).attr('width', width);
-  }
-
-  var svg = createSvg('body', svgHeight, svgWidth);
-
-  // Create our initial D3 chart.
-  svg.selectAll('rect')
-     .data(frequencyData)
-     .enter()
-     .append('rect')
-     .attr('x', function (d, i) {
-        return i * (svgWidth / frequencyData.length);
-     })
-     .attr('width', svgWidth / frequencyData.length - barPadding);
-
-  // Continuously loop and update chart with frequency data.
-  function renderChart() {
-     requestAnimationFrame(renderChart);
-
-     // Copy frequency data to frequencyData array.
-     analyser.getByteFrequencyData(frequencyData);
-
-     // Update d3 chart with new data.
-     svg.selectAll('rect')
-        .data(frequencyData)
-        .attr('y', function(d) {
-           return svgHeight - d;
-        })
-        .attr('height', function(d) {
-           return d;
-        })
-        .attr('fill', function(d) {
-           return 'rgb(0, 0, ' + d + ')';
-        });
-  }
-
-  // Run the loop
-   renderChart();
-  toggleSong();
-
-  });
+  
 
 
     $('.play-icon').on('click', function() {
@@ -295,15 +345,61 @@ updateCurrentTime();
 
 
 
+$('.fa-repeat').on('click',function() {
+    $('.fa-repeat').toggleClass('disabled')
+    willLoop = 1 - willLoop;
+});
+
+
+$('.fa-random').on('click',function() {
+    $('.fa-random').toggleClass('disabled')
+    willShuffle = 1 - willShuffle;
+});
 
 
 
+$('.fa-bar-chart').on('click',function() {
+    $('.fa-bar-chart').toggleClass('disabled')
+    willvisual = 1 - willvisual;
+	if(willvisual == 1)
+	{
+	
+	visualization();
+	}
+	
+		
+});
 
 
-
-
-
-
+$('audio').on('ended',function() {
+    var audio = document.querySelector('audio');
+    if (willShuffle == 1) {
+        var nextSongNumber = randomExcluded(1,7,currentSongNumber); // Calling our function from Stackoverflow
+        var nextSongObj = songs[nextSongNumber-1];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber = nextSongNumber;
+    }
+    else if(currentSongNumber < 8) {
+        var nextSongObj = songs[currentSongNumber];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber = currentSongNumber + 1;
+    }
+    else if(willLoop == 1) {
+        var nextSongObj = songs[0];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber =  1;
+    }
+    else {
+        $('.play-icon').removeClass('fa-pause').addClass('fa-play');
+        audio.currentTime = 0;
+    }
+})
 //play-pause the song with keypress
 
 
