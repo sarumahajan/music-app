@@ -5,6 +5,7 @@ var willLoop = 0;
 var willShuffle = 0;
 var willvisual = 0;
 
+//var willmute =0;
 
 
 
@@ -20,10 +21,31 @@ var willvisual = 0;
 
 
 
-//function for song play and pause
-
-
-
+ /*function mute(){
+	 var song = document.querySelector('audio');
+	 if(song.muted)
+	 {
+	 song.muted=false;
+	 }
+      else
+	  {
+		  song.muted = true;
+	  }
+ }*/
+ 
+ 
+ 
+ function setvolume(){
+	 
+	 var song = document.querySelector('audio');
+	 song.volume= volumeslider.value/100;
+ }
+ 
+ 
+		  
+ 
+ //function for song play and pause
+ 
 	function toggleSong() {
 				var song = document.querySelector('audio');
 				if(song.paused == true) {
@@ -41,7 +63,7 @@ var willvisual = 0;
 
 
 function visualization(){
-	
+
         var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   var audioElement = document.getElementById('audioElement');
   var audioSrc = audioCtx.createMediaElementSource(audioElement);
@@ -155,6 +177,17 @@ function fancyTimeFormat(time)
     ret += "" + secs;
     return ret;
 }
+/*function clickbar(e){
+	 var song = document.querySelector('audio');
+      if(!song.ended){
+		  var mouseX = e.pageX - player-progress.offsetleft;
+		  var newtime = mouseX*song.duration/barsize;
+		  song.currentTime = newtime;
+		  $(".progress-filled").css('width', mousex+"%");
+	  }
+}*/
+
+
 
 function progressbar() {
 	var song = document.querySelector('audio');
@@ -214,7 +247,7 @@ var songs = [{  //song1
         'duration': '3:23',
         'fileName': 'song1.mp3',
 	   'image': 'song1.jpg'
-        
+
     },
     {      //song2
         'name': 'Cheap Thrills',
@@ -223,7 +256,7 @@ var songs = [{  //song1
         'duration': '3:44',
         'fileName': 'song2.mp3',
 	   'image': 'song2.jpg'
-	
+
     },
     {       //song3
         'name': 'It Aint Me',
@@ -330,7 +363,7 @@ progressbar();
     });
 
 	//play-pause the song with icon
-  
+
 
 
     $('.play-icon').on('click', function() {
@@ -340,6 +373,24 @@ progressbar();
 
     });
 
+	/*
+    $('.player-progress').on('click', function() {
+
+		clickbar(false);
+
+
+    });
+	*/
+	
+	
+	
+//$('.fa-volume-off').on('click', function() {
+//$('.fa-volume-off').toggleClass('disabled')
+ //   willmute = 1 - willmute;
+	
+ //mute();
+
+  //  });
 
 
 
@@ -358,16 +409,18 @@ $('.fa-random').on('click',function() {
 
 
 
+
+$('#volumeslider').on('mousemove',function() {
+    setvolume();
+});
+
+
 $('.fa-bar-chart').on('click',function() {
     $('.fa-bar-chart').toggleClass('disabled')
     willvisual = 1 - willvisual;
-	if(willvisual == 1)
-	{
 	
-	visualization();
-	}
-	
-		
+		visualization();
+
 });
 
 
@@ -381,6 +434,9 @@ $('audio').on('ended',function() {
         changeCurrentSongDetails(nextSongObj);
         currentSongNumber = nextSongNumber;
     }
+
+
+		
     else if(currentSongNumber < 7) {
         var nextSongObj = songs[currentSongNumber];
         audio.src = nextSongObj.fileName;

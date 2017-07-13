@@ -256,3 +256,10 @@ table.dataTable tbody tr {
 .fa.disabled {
     color: gray;
 }
+#volumeslider{
+	position:relative;
+	left:-25px;
+	top:2px;
+	width:50px;
+	
+}
