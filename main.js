@@ -381,7 +381,7 @@ $('audio').on('ended',function() {
         changeCurrentSongDetails(nextSongObj);
         currentSongNumber = nextSongNumber;
     }
-    else if(currentSongNumber < 8) {
+    else if(currentSongNumber < 7) {
         var nextSongObj = songs[currentSongNumber];
         audio.src = nextSongObj.fileName;
         toggleSong();
