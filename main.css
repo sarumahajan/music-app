@@ -26,14 +26,12 @@ h3{
 	top:-30px;
 	color:white;
 	font-size: 20px;
-	
+
 }
 
 
 .back-img{
-	background-image: url("http://th09.deviantart.net/fs47/PRE/f/2009/188/2/1/Sound_Wave_by_vladstudio.jpg");
-	
-	
+	background-image: url("https://ak5.picdn.net/shutterstock/videos/771844/thumb/1.jpg?i10c=img.resize(height:160)");
 
 	background-size: cover;
 }
@@ -58,7 +56,7 @@ h3{
 }
 
 .main {
-	
+
 	background-image: url("http://i.imgur.com/HnMdx5U.png");
 
 	background-size: cover;
@@ -67,7 +65,7 @@ h3{
     display: flex;
     flex-direction: column;
     color: white;
-    
+
 }
 #songs{
 	position:relative;
@@ -79,21 +77,21 @@ h3{
 
 .main header {
     height: 20px;
-   
+
     padding: 1rem;
     color: #FFF;
 }
 
 .main .content {
     flex:1;
-    
+
 }
 
 .main footer {
 	position:relative;
 	top:-20px;
     height: 60px;
-    
+
     padding-top: 1rem;
 }
 
@@ -261,5 +259,8 @@ table.dataTable tbody tr {
 	left:-25px;
 	top:2px;
 	width:50px;
-	
+
+}
+svg{
+	background-color:black;
 }

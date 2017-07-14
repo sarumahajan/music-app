@@ -32,20 +32,20 @@ var willvisual = 0;
 		  song.muted = true;
 	  }
  }*/
- 
- 
- 
+
+
+
  function setvolume(){
-	 
+
 	 var song = document.querySelector('audio');
 	 song.volume= volumeslider.value/100;
  }
- 
- 
-		  
- 
+
+
+
+
  //function for song play and pause
- 
+
 	function toggleSong() {
 				var song = document.querySelector('audio');
 				if(song.paused == true) {
@@ -335,10 +335,6 @@ progressbar();
         addSongNameClickEvent(obj,i+1);
     }
 	$('#songs').DataTable({
-
-
-
-
         paging:         false
     });
 
@@ -381,13 +377,13 @@ progressbar();
 
     });
 	*/
-	
-	
-	
+
+
+
 //$('.fa-volume-off').on('click', function() {
 //$('.fa-volume-off').toggleClass('disabled')
  //   willmute = 1 - willmute;
-	
+
  //mute();
 
   //  });
@@ -416,10 +412,21 @@ $('#volumeslider').on('mousemove',function() {
 
 
 $('.fa-bar-chart').on('click',function() {
-    $('.fa-bar-chart').toggleClass('disabled')
-    willvisual = 1 - willvisual;
-	
-		visualization();
+
+  if(willvisual==0){
+      $('.fa-bar-chart').removeClass('disabled');
+      willvisual=1;
+
+
+          $('svg').css('display', 'inline-block');
+    		visualization();
+  }
+  else{
+    $('.fa-bar-chart').addClass('disabled');
+
+    $('svg').css('display', 'none');
+  willvisual=0;
+  }
 
 });
 
@@ -436,7 +443,7 @@ $('audio').on('ended',function() {
     }
 
 
-		
+
     else if(currentSongNumber < 7) {
         var nextSongObj = songs[currentSongNumber];
         audio.src = nextSongObj.fileName;
