@@ -4,14 +4,12 @@ var currentSongNumber = 1;
 var willLoop = 0;
 var willShuffle = 0;
 var willvisual = 0;
-
-//var willmute =0;
-
+var willmute =1;
 
 
 
 
-
+	
 
 
 
@@ -21,7 +19,9 @@ var willvisual = 0;
 
 
 
- /*function mute(){
+
+
+ function mute(){
 	 var song = document.querySelector('audio');
 	 if(song.muted)
 	 {
@@ -30,8 +30,9 @@ var willvisual = 0;
       else
 	  {
 		  song.muted = true;
-	  }
- }*/
+		  
+		  }
+ }
 
 
 
@@ -123,7 +124,6 @@ function visualization(){
 
 
 
-
 // click function for all song
 
 
@@ -143,10 +143,11 @@ toggleSong();
 changeCurrentSongDetails(songObj);
 }
 });
+
 }
 
 
-
+	
 // show details of current song playing
 function changeCurrentSongDetails(songObj) {
     $('.current-song-image').attr('src','image/' + songObj.image);
@@ -299,6 +300,8 @@ var songs = [{  //song1
 	   'image': 'song7.jpg'
     }
 
+
+
 	]
 
 
@@ -324,16 +327,7 @@ progressbar();
 
 	//loop for text and click event  for all songs
 
- for(var i =0; i < songs.length;i++) {
-        var obj = songs[i];
-        var name = '#song' + (i+1);
-        var song = $(name);
-        song.find('.song-name').text(obj.name);
-        song.find('.song-artist').text(obj.artist);
-        song.find('.song-album').text(obj.album);
-        song.find('.song-length').text(obj.duration);
-        addSongNameClickEvent(obj,i+1);
-    }
+ 
 	$('#songs').DataTable({
         paging:         false
     });
@@ -341,7 +335,19 @@ progressbar();
 }
 
 
-
+for(var i =0; i < songs.length;i++) {
+        var obj = songs[i];
+		 var objnext = songs[i+1];
+        var name = '#song' + (i+1);
+        var song = $(name);
+        song.find('.song-name').text(obj.name);
+        song.find('.song-artist').text(obj.artist);
+        song.find('.song-album').text(obj.album);
+        song.find('.song-length').text(obj.duration);
+        addSongNameClickEvent(obj,i+1);
+	
+		
+    }
 
 
 	//welcome screen
@@ -380,13 +386,13 @@ progressbar();
 
 
 
-//$('.fa-volume-off').on('click', function() {
-//$('.fa-volume-off').toggleClass('disabled')
- //   willmute = 1 - willmute;
+$('.fa-volume-up ').on('click', function() {
+$('.fa-volume-up ').toggleClass('disabled')
+    willmute = 1 - willmute;
 
- //mute();
+ mute();
 
-  //  });
+    });
 
 
 
@@ -402,6 +408,23 @@ $('.fa-random').on('click',function() {
     $('.fa-random').toggleClass('disabled')
     willShuffle = 1 - willShuffle;
 });
+
+
+$('.next').on('click',function() {
+	var nextsong;
+	if(song.play == true)
+	{
+	var next =songs[1];
+	var audio = document.querySelector('audio');
+
+        
+        audio.src = next.fileName;
+        toggleSong();
+        changeCurrentSongDetails(next);
+    }
+});
+
+
 
 
 
