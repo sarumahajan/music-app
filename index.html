@@ -10,25 +10,38 @@
   </head>
 
   <body>
+  
+  
       <div class="wrapper">
-        <section class="welcome-screen back-img ">
+	  
+	  <!----------------------------------------------------------------------------welcome-screen-------------------------------------------------------------------------->
+       
+
+	   <section class="welcome-screen back-img ">
           <h1> Welcome to Songify </h1>
           <h3> Enter your name to listen the songs </h3>
           <div class="input-wrapper welcome">
-              <input type="text" placeholder="Name"  id="name-input" required>
-              <button> Go </button>
+              <span class="hidden errormessage" id="error1"></span>&nbsp&nbsp&nbsp&nbsp <input type="text" placeholder="Name"  id="name-input" required>
+              <button class="go-button"> Go </button>
           </div>
       </section>
-        <audio id="audioElement" src="song1.mp3"></audio>
-
-
+		
+<!---------------------------------------------------------------------------------main-page of playlist-------------------------------------------------------------->
     <div class="main hidden">
         <header>
             <div class="right floated user-name"> </div>
         </header>
         <section class="content">
-            <audio src="song1.mp3"></audio>
-    <table id="songs"  >
+<!------------------------------------------------------------------------------default-audio--------------------------------------------------------------------------------------------------------->
+	  
+        <audio id="audioElement" src="song1.mp3"></audio>
+		
+<!----------------------------------------------------------------------------playlist-table----------------------------------------------------------------------------->	
+    
+	<table id="songs"  >
+	
+<!-----------------------------header------------------>
+
 <thead class="list-headers"  >
         <tr >
   <td> Title </td>
@@ -36,42 +49,59 @@
         <td> Album </td>
         <td> Duration </td>
     </tr></thead>
-  <tbody class="song-list"><tr class="song" id="song1">
+	
+  <tbody class="song-list">
+  
+ <!------------------------------song1----------------------->
+  
+  <tr class="song" id="song1">
             <td class="song-name"></td>
             <td class="song-artist"></td>
             <td class="song-album"></td>
             <td class="song-length"></td>
         </tr>
-        <tr class="song" id="song2">
+<!------------------------------song2----------------------->	
+        
+		<tr class="song" id="song2">
             <td class="song-name"></td>
             <td class="song-artist"></td>
             <td class="song-album"></td>
             <td class="song-length"></td>
         </tr>
+<!------------------------------song3----------------------->		
+  
   <tr class="song" id="song3">
             <td class="song-name"></td>
             <td class="song-artist"></td>
             <td class="song-album"></td>
             <td class="song-length"></td>
         </tr>
-        <tr class="song" id="song4">
+<!------------------------------song4----------------------->		
+        
+		<tr class="song" id="song4">
             <td class="song-name"></td>
             <td class="song-artist"></td>
             <td class="song-album"></td>
             <td class="song-length"></td>
         </tr>
+<!------------------------------song5----------------------->		
+  
   <tr class="song" id="song5">
             <td class="song-name"></td>
             <td class="song-artist"></td>
             <td class="song-album"></td>
             <td class="song-length"></td>
         </tr>
-        <tr class="song" id="song6">
+<!------------------------------song6----------------------->		
+        
+		<tr class="song" id="song6">
             <td class="song-name"></td>
             <td class="song-artist"></td>
             <td class="song-album"></td>
             <td class="song-length"></td>
         </tr>
+<!------------------------------song7----------------------->
+  
   <tr class="song" id="song7">
             <td class="song-name"></td>
             <td class="song-artist"></td>
@@ -84,8 +114,9 @@
   </tbody>
 
 </table>
+<!-------------------------------------details of current song playing----------------------------------------------------------------------->
 
-<div class="current-song-wrapper">
+	<div class="current-song-wrapper">
 
     <img class="current-song-image">
     <div>
@@ -94,7 +125,10 @@
     </div>
     </div>
         </section>
-        <footer >
+		
+<!----------------------------------------------------play pause next perivous loop shuffle volume mute button and progress bar---------------------------------->
+        
+		<footer >
 
             <div class="controls">
                 <div class="player-buttons">
@@ -128,6 +162,8 @@
 
 
   </div>
+  <!--------------------- external javascript--------------------->
+  
   <script src="jquery.js"></script>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>

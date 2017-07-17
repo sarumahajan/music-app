@@ -261,6 +261,13 @@ table.dataTable tbody tr {
 	width:80px;
 
 }
+#name-input{
+	padding:4px;
+	outline:none;
+}
+.go-button{
+	padding:4px;
+}
 svg{
 	background-color:black;
 }
@@ -358,4 +365,10 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
+}
+.errormessage{
+	color:white;
+	background-color:darkred;
+	border-radius:3px;
+	padding:4px;
 }

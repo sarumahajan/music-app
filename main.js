@@ -19,7 +19,7 @@ var willmute =1;
 
 
 
-
+//to mute the song mute function is there
 
  function mute(){
 	 var song = document.querySelector('audio');
@@ -34,7 +34,8 @@ var willmute =1;
 		  }
  }
 
-
+ 
+//low-high the sound of song volume function is there
 
  function setvolume(){
 
@@ -62,7 +63,8 @@ var willmute =1;
 
 }
 
-
+ //function for visualization
+ 
 function visualization(){
 
         var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -142,13 +144,15 @@ audio.src = songName;
 toggleSong();
 changeCurrentSongDetails(songObj);
 }
+
 });
 
 }
 
 
 	
-// show details of current song playing
+// function for showing details of current song playing
+
 function changeCurrentSongDetails(songObj) {
     $('.current-song-image').attr('src','image/' + songObj.image);
     $('.current-song-name').text(songObj.name);
@@ -197,8 +201,11 @@ function progressbar() {
 	var percentage=(ct/dt)*100;
 	$(".progress-filled").css('width', percentage+"%");
 }
-//function for display current and duration time of song
 
+
+
+
+//function for display current and duration time of song
 
 function updateCurrentTime() {
 var song = document.querySelector('audio');
@@ -213,11 +220,14 @@ var song = document.querySelector('audio');
 
 
 
+//function for current song playing to  jump the time of song at end
 
 function timeJump() {
     var song = document.querySelector('audio')
     song.currentTime = song.duration - 5;
 }
+
+//function for random songs playing 
 
 function randomExcluded(min, max, excluded) {
     var n = Math.floor(Math.random() * (max-min) + min);
@@ -304,7 +314,7 @@ var songs = [{  //song1
 
 	]
 
-
+//window load
 
 window.onload = function() {
 
@@ -318,15 +328,7 @@ updateCurrentTime();
 progressbar();
 },1000);
 
-
-
-
-
-
-
-
-	//loop for text and click event  for all songs
-
+ // data table used for playlist
  
 	$('#songs').DataTable({
         paging:         false
@@ -334,6 +336,7 @@ progressbar();
 
 }
 
+//loop for text and click event  for all songs
 
 for(var i =0; i < songs.length;i++) {
         var obj = songs[i];
@@ -360,21 +363,23 @@ for(var i =0; i < songs.length;i++) {
             $('.welcome-screen').addClass('hidden');
             $('.main').removeClass('hidden');
         } else {
+			var error = "Enter Your Name";
+			$('#error1').removeClass('hidden').text(error);
             $('#name-input').addClass('error');
         }
     });
 
+	
+	
+	
 	//play-pause the song with icon
-
-
-
-    $('.play-icon').on('click', function() {
-
+   
+   $('.play-icon').on('click', function() {
 		toggleSong();
-
-
     });
 
+	
+	
 	/*
     $('.player-progress').on('click', function() {
 
@@ -385,6 +390,7 @@ for(var i =0; i < songs.length;i++) {
 	*/
 
 
+// click on mute icon 
 
 $('.fa-volume-up ').on('click', function() {
 $('.fa-volume-up ').toggleClass('disabled')
@@ -397,12 +403,14 @@ $('.fa-volume-up ').toggleClass('disabled')
 
 
 
+// click on loop icon 
 
 $('.fa-repeat').on('click',function() {
-    $('.fa-repeat').toggleClass('disabled')
+$('.fa-repeat').toggleClass('disabled')
     willLoop = 1 - willLoop;
 });
 
+// click on shuffle icon 
 
 $('.fa-random').on('click',function() {
     $('.fa-random').toggleClass('disabled')
@@ -411,9 +419,7 @@ $('.fa-random').on('click',function() {
 
 
 $('.next').on('click',function() {
-	var nextsong;
-	if(song.play == true)
-	{
+	
 	var next =songs[1];
 	var audio = document.querySelector('audio');
 
@@ -421,18 +427,17 @@ $('.next').on('click',function() {
         audio.src = next.fileName;
         toggleSong();
         changeCurrentSongDetails(next);
-    }
+    
 });
 
 
-
-
-
+// click on volume icon 
 
 $('#volumeslider').on('mousemove',function() {
     setvolume();
 });
 
+// click on visualzation icon 
 
 $('.fa-bar-chart').on('click',function() {
 
@@ -453,10 +458,13 @@ $('.fa-bar-chart').on('click',function() {
 
 });
 
+//when the song ended it check for shuffle,loop and random song condition and play the next song
 
 $('audio').on('ended',function() {
     var audio = document.querySelector('audio');
-    if (willShuffle == 1) {
+    //shuffle
+	
+	if (willShuffle == 1) {
         var nextSongNumber = randomExcluded(1,7,currentSongNumber); // Calling our function from Stackoverflow
         var nextSongObj = songs[nextSongNumber-1];
         audio.src = nextSongObj.fileName;
@@ -465,15 +473,17 @@ $('audio').on('ended',function() {
         currentSongNumber = nextSongNumber;
     }
 
-
-
-    else if(currentSongNumber < 7) {
+       
+       //start from second song
+	   
+    else if(currentSongNumber < 8) {
         var nextSongObj = songs[currentSongNumber];
         audio.src = nextSongObj.fileName;
         toggleSong();
         changeCurrentSongDetails(nextSongObj);
         currentSongNumber = currentSongNumber + 1;
     }
+	// loop
     else if(willLoop == 1) {
         var nextSongObj = songs[0];
         audio.src = nextSongObj.fileName;
@@ -486,11 +496,12 @@ $('audio').on('ended',function() {
         audio.currentTime = 0;
     }
 })
-//play-pause the song with keypress
 
 
 
-    $('body').on('keypress',function(event) {
+//play-pause the song with keypress i.e backspace
+    
+	$('body').on('keypress',function(event) {
     var target = event.target;
     if (event.keyCode == 32 && target.tagName !='INPUT')
     {
