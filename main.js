@@ -1,6 +1,6 @@
 
 
-var currentSongNumber = 1;
+var currentSongNumber = 0;
 var willLoop = 0;
 var willShuffle = 0;
 var willvisual = 0;
@@ -476,7 +476,7 @@ $('audio').on('ended',function() {
        
        //start from second song
 	   
-    else if(currentSongNumber < 8) {
+    else if(currentSongNumber < 7) {
         var nextSongObj = songs[currentSongNumber];
         audio.src = nextSongObj.fileName;
         toggleSong();
