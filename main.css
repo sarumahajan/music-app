@@ -133,7 +133,7 @@ h3{
 }
 
 .progress-wrapper span {
-    color: #959595;
+    color: white;
 }
 
 .player-progress {
@@ -146,7 +146,7 @@ h3{
 }
 
 .progress-filled {
-    background-color: #959595;
+    background-color: white;
     height: 8px;
     border-radius: 4px;
     width: 0;
