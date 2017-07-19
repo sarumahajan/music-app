@@ -276,7 +276,7 @@ table.dataTable tbody tr {
 	padding:4px;
 }
 svg{
-	background-color:black;
+	background-color:none;
 }
 input[type=range] {
   -webkit-appearance: none;
