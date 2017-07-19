@@ -374,9 +374,10 @@ for(var i =0; i < songs.length;i++) {
 			$('.vegas').vegas({
 				slides:[
 				{ src:"image/1.jpg"},
-				{ src:"image/2.jpg"},
+				{ src:"image/2.jpeg"},
 				{ src:"image/3.jpg"},
-				
+                 { src:"image/5.jpg"},
+                 { src:"image/4.jpg"},				
 				{ src:"image/6.jpg"},
 				{ src:"image/7.jpg"},
 				{ src:"image/8.jpg"}
