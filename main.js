@@ -1,5 +1,5 @@
 
-
+var Playingnumber = 0  ;
 var currentSongNumber = 0;
 var willLoop = 0;
 var willShuffle = 0;
@@ -12,7 +12,14 @@ var willmute =1;
 	
 
 
-
+function changeSong() //we have made a machine jispe 2 buttons diye hai songName and position ke liye
+{
+var music =  songs[Playingnumber].fileName;
+var song = document.querySelector("audio");
+song.src = music;
+toggleSong();
+changeCurrentSongDetails(songs[Playingnumber])
+}
 
 
 
@@ -132,7 +139,12 @@ function visualization(){
 function addSongNameClickEvent(songObj,position) {
 	var songName = songObj.fileName;
     var id = '#song' + position;
+		//Playingnumber  = position;
+	
 $(id).click(function() {
+	//console.log(Playingnumber);
+	//console.log(position);
+	Playingnumber = position-1;
 var audio = document.querySelector('audio');
 var currentSong = audio.src;
 if(currentSong.search(songName) != -1)
@@ -340,7 +352,7 @@ progressbar();
 
 for(var i =0; i < songs.length;i++) {
         var obj = songs[i];
-		 var objnext = songs[i+1];
+		var nextsong =songs[i+1];
         var name = '#song' + (i+1);
         var song = $(name);
         song.find('.song-name').text(obj.name);
@@ -362,7 +374,23 @@ for(var i =0; i < songs.length;i++) {
             $('.main .user-name').text(message);
             $('.welcome-screen').addClass('hidden');
             $('.main').removeClass('hidden');
-        } else {
+			
+			$('.vegas').vegas({
+				slides:[
+				{ src:"image/1.jpg"},
+				{ src:"image/2.jpg"},
+				{ src:"image/3.jpg"},
+				
+				{ src:"image/6.jpg"},
+				{ src:"image/7.jpg"},
+				{ src:"image/8.jpg"}
+				
+				],
+				animation:'kenburns'
+			});
+		}
+				
+         else {
 			var error = "Enter Your Name";
 			$('#error1').removeClass('hidden').text(error);
             $('#name-input').addClass('error');
@@ -418,17 +446,7 @@ $('.fa-random').on('click',function() {
 });
 
 
-$('.next').on('click',function() {
-	
-	var next =songs[1];
-	var audio = document.querySelector('audio');
 
-        
-        audio.src = next.fileName;
-        toggleSong();
-        changeCurrentSongDetails(next);
-    
-});
 
 
 // click on volume icon 
@@ -508,3 +526,68 @@ $('audio').on('ended',function() {
         toggleSong();
     }
 });
+
+
+
+
+$(".fa-step-forward").click(function(){
+
+if( willShuffle == 1)
+{
+      var audio = document.querySelector('audio');
+      var nextSongNumber = randomExcluded(0,6,Playingnumber); // Calling our function from Stackoverflow
+
+      var nextSongObj = songs[nextSongNumber];
+      audio.src = nextSongObj.fileName;
+      toggleSong();
+      changeCurrentSongDetails(nextSongObj);
+      Playingnumber = nextSongNumber;
+
+
+}
+
+
+else {
+
+          if(Playingnumber == songs.length-1){
+          Playingnumber = 0;
+          changeSong();
+          }
+
+          else {
+         // console.log("two");
+          console.log(Playingnumber);
+            Playingnumber++;
+          changeSong();
+          }
+
+}
+
+})
+
+
+
+
+$(".fa-step-backward").click(function(){
+
+if(Playingnumber == 0){
+console.log("one");
+Playingnumber = (songs.length-1);
+changeSong();
+
+
+
+
+}
+
+else {
+console.log("two");
+console.log(Playingnumber);
+  Playingnumber--;
+changeSong();
+}
+
+
+
+
+})
