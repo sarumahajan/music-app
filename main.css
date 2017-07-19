@@ -47,7 +47,7 @@ h3{
 .wrapper {
     height:650px;
     width: 100%;
-   
+
 
 }
 
@@ -62,7 +62,7 @@ h3{
 
 .main {
 
-	
+
 
 	background-size: cover;
     width: 100%;
@@ -277,6 +277,10 @@ table.dataTable tbody tr {
 }
 svg{
 	background-color:none;
+
+}
+rect{
+    fill:OrangeRed;
 }
 input[type=range] {
   -webkit-appearance: none;
