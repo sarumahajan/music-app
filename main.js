@@ -5,7 +5,7 @@ var willLoop = 0;
 var willShuffle = 0;
 var willvisual = 0;
 var willmute =1;
-
+var barsize=700;
 
 
 
@@ -195,13 +195,7 @@ function fancyTimeFormat(time)
     return ret;
 }
 /*function clickbar(e){
-	 var song = document.querySelector('audio');
-      if(!song.ended){
-		  var mouseX = e.pageX - player-progress.offsetleft;
-		  var newtime = mouseX*song.duration/barsize;
-		  song.currentTime = newtime;
-		  $(".progress-filled").css('width', mousex+"%");
-	  }
+
 }*/
 
 
@@ -212,6 +206,7 @@ function progressbar() {
 	var dt=song.duration;
 	var percentage=(ct/dt)*100;
 	$(".progress-filled").css('width', percentage+"%");
+	
 }
 
 
@@ -227,6 +222,7 @@ var song = document.querySelector('audio');
     duration = fancyTimeFormat(duration)
     $('.time-elapsed').text(currentTime);
     $('.song-duration').text(duration);
+	
 }
 
 
@@ -591,3 +587,22 @@ changeSong();
 
 
 })
+$('.player-progress').on('click',function(e) {
+	console.log(e.pageX);
+	
+  var song = document.querySelector('audio');
+      if(!song.ended){
+		  var mouseX = e.pageX - bar.offsetLeft;
+		  console.log(mouseX);
+		  var newtime = (mouseX*song.duration)/barsize;
+		  console.log(newtime);
+		  song.currentTime = newtime;
+		
+	       var ct=  song.currentTime;
+	       var dt=song.duration;
+	       var percentage=(ct/dt)*100;
+	       $(".progress-filled").css('width', percentage+"%");
+	
+	  }
+});
+
