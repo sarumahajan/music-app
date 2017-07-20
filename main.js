@@ -9,7 +9,7 @@ var barsize=700;
 
 
 
-	
+
 
 
 function changeSong() //we have made a machine jispe 2 buttons diye hai songName and position ke liye
@@ -37,11 +37,11 @@ changeCurrentSongDetails(songs[Playingnumber])
       else
 	  {
 		  song.muted = true;
-		  
+
 		  }
  }
 
- 
+
 //low-high the sound of song volume function is there
 
  function setvolume(){
@@ -61,17 +61,19 @@ changeCurrentSongDetails(songs[Playingnumber])
 				console.log('Playing');
 				$('.play-icon').removeClass('fa-play').addClass('fa-pause');
 				song.play();
+				$('body').vegas('play');
 				}
 				else {
 				console.log('Pausing');
 				$('.play-icon').removeClass('fa-pause').addClass('fa-play');
 				song.pause();
+				$('body').vegas('pause');
 				}
 
 }
 
  //function for visualization
- 
+
 function visualization(){
 
         var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -87,7 +89,7 @@ function visualization(){
   var frequencyData = new Uint8Array(350);
 
   var svgHeight = '260';
-  var svgWidth = '1350';
+  var svgWidth = '1430';
   var barPadding = '0.5';
 
   function createSvg(parent, height, width) {
@@ -140,7 +142,7 @@ function addSongNameClickEvent(songObj,position) {
 	var songName = songObj.fileName;
     var id = '#song' + position;
 		//Playingnumber  = position;
-	
+
 $(id).click(function() {
 	//console.log(Playingnumber);
 	//console.log(position);
@@ -162,7 +164,7 @@ changeCurrentSongDetails(songObj);
 }
 
 
-	
+
 // function for showing details of current song playing
 
 function changeCurrentSongDetails(songObj) {
@@ -206,7 +208,7 @@ function progressbar() {
 	var dt=song.duration;
 	var percentage=(ct/dt)*100;
 	$(".progress-filled").css('width', percentage+"%");
-	
+
 }
 
 
@@ -222,7 +224,7 @@ var song = document.querySelector('audio');
     duration = fancyTimeFormat(duration)
     $('.time-elapsed').text(currentTime);
     $('.song-duration').text(duration);
-	
+
 }
 
 
@@ -235,7 +237,7 @@ function timeJump() {
     song.currentTime = song.duration - 5;
 }
 
-//function for random songs playing 
+//function for random songs playing
 
 function randomExcluded(min, max, excluded) {
     var n = Math.floor(Math.random() * (max-min) + min);
@@ -337,7 +339,7 @@ progressbar();
 },1000);
 
  // data table used for playlist
- 
+
 	$('#songs').DataTable({
         paging:         false
     });
@@ -356,8 +358,8 @@ for(var i =0; i < songs.length;i++) {
         song.find('.song-album').text(obj.album);
         song.find('.song-length').text(obj.duration);
         addSongNameClickEvent(obj,i+1);
-	
-		
+
+
     }
 
 
@@ -370,23 +372,23 @@ for(var i =0; i < songs.length;i++) {
             $('.main .user-name').text(message);
             $('.welcome-screen').addClass('hidden');
             $('.main').removeClass('hidden');
-			
+
 			$('.vegas').vegas({
 				slides:[
 				{ src:"image/1.jpg"},
 				{ src:"image/2.jpeg"},
 				{ src:"image/3.jpg"},
                  { src:"image/5.jpg"},
-                 { src:"image/4.jpg"},				
+                 { src:"image/4.jpg"},
 				{ src:"image/6.jpg"},
 				{ src:"image/7.jpg"},
 				{ src:"image/8.jpg"}
-				
+
 				],
 				animation:'kenburns'
 			});
 		}
-				
+
          else {
 			var error = "Enter Your Name";
 			$('#error1').removeClass('hidden').text(error);
@@ -394,17 +396,17 @@ for(var i =0; i < songs.length;i++) {
         }
     });
 
-	
-	
-	
+
+
+
 	//play-pause the song with icon
-   
+
    $('.play-icon').on('click', function() {
 		toggleSong();
     });
 
-	
-	
+
+
 	/*
     $('.player-progress').on('click', function() {
 
@@ -415,7 +417,7 @@ for(var i =0; i < songs.length;i++) {
 	*/
 
 
-// click on mute icon 
+// click on mute icon
 
 $('.fa-volume-up ').on('click', function() {
 $('.fa-volume-up ').toggleClass('disabled')
@@ -428,14 +430,14 @@ $('.fa-volume-up ').toggleClass('disabled')
 
 
 
-// click on loop icon 
+// click on loop icon
 
 $('.fa-repeat').on('click',function() {
 $('.fa-repeat').toggleClass('disabled')
     willLoop = 1 - willLoop;
 });
 
-// click on shuffle icon 
+// click on shuffle icon
 
 $('.fa-random').on('click',function() {
     $('.fa-random').toggleClass('disabled')
@@ -446,13 +448,13 @@ $('.fa-random').on('click',function() {
 
 
 
-// click on volume icon 
+// click on volume icon
 
 $('#volumeslider').on('mousemove',function() {
     setvolume();
 });
 
-// click on visualzation icon 
+// click on visualzation icon
 
 $('.fa-bar-chart').on('click',function() {
 
@@ -478,7 +480,7 @@ $('.fa-bar-chart').on('click',function() {
 $('audio').on('ended',function() {
     var audio = document.querySelector('audio');
     //shuffle
-	
+
 	if (willShuffle == 1) {
         var nextSongNumber = randomExcluded(1,7,currentSongNumber); // Calling our function from Stackoverflow
         var nextSongObj = songs[nextSongNumber-1];
@@ -488,9 +490,9 @@ $('audio').on('ended',function() {
         currentSongNumber = nextSongNumber;
     }
 
-       
+
        //start from second song
-	   
+
     else if(currentSongNumber < 7) {
         var nextSongObj = songs[currentSongNumber];
         audio.src = nextSongObj.fileName;
@@ -515,11 +517,12 @@ $('audio').on('ended',function() {
 
 
 //play-pause the song with keypress i.e backspace
-    
+
 	$('body').on('keypress',function(event) {
     var target = event.target;
     if (event.keyCode == 32 && target.tagName !='INPUT')
     {
+
         toggleSong();
     }
 });
@@ -589,21 +592,20 @@ changeSong();
 
 })
 $('.player-progress').on('click',function(e) {
-	console.log(e.pageX);
-	
+	//console.log(e.pageX);
+
   var song = document.querySelector('audio');
       if(!song.ended){
 		  var mouseX = e.pageX - bar.offsetLeft;
-		  console.log(mouseX);
+		  //console.log(mouseX);
 		  var newtime = (mouseX*song.duration)/barsize;
-		  console.log(newtime);
+		  //console.log(newtime);
 		  song.currentTime = newtime;
-		
+
 	       var ct=  song.currentTime;
 	       var dt=song.duration;
 	       var percentage=(ct/dt)*100;
 	       $(".progress-filled").css('width', percentage+"%");
-	
+
 	  }
 });
-
